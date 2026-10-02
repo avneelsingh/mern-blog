@@ -1,0 +1,154 @@
+Mern-Blog:
+----------------------------------------------------
+1. mkdir mern-blog
+2. cd mern-blog
+3. npx create-react-app client
+
+4. cd client
+5. npm install -D tailwindcss@3.4.19 postcss autoprefixer
+
+### tailwing.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+### postcss.config.js
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+
+### index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+### App.js
+function App() {
+  return (
+    <div className="min-h-screen bg-blue-500 flex items-center justify-center">
+      <h1 className="text-4xl font-bold text-white">
+        Tailwind is working!
+      </h1>
+    </div>
+  );
+}
+
+export default App;
+
+6. npx tailwindcss init
+7. npm install react-router-dom
+8. npm start
+----------------------------------------------------
+
+9. cd ..
+# cd .\mern-blog
+10. npm install express
+11. npm install -D concurrently nodemon
+
+### package.json
+{
+  "name": "mern-blog",
+  "version": "1.0.0",
+  "description": "Mern-Blog",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "Avneel Singh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5",
+    "nodemon": "^3.1.14"
+  }
+}
+
+### package.json in client folder, add:
+"proxy": "http://localhost:8000",
+at line 5
+
+12. npm run server
+# http://localhost:8000/ 
+
+13. Install and Open PostMan
+### In Body->raw, write:
+{
+    "username": "Aman",
+    "text": "I like this post"
+}
+----------------------------------------------------
+
+14. Install MongoDB
+15. Open TERMINAL 1: cd "C:\Program Files\MongoDB\Server\9.0\bin" 
+16. .\mongod.exe
+17. Make folder in C drive:
+# mkdir C:\data\db
+18. .\mongod.exe --dbpath "C:\data\db"
+# Let this terminal run
+
+19. Install MongoDB Shell: https://www.mongodb.com/try/download/shell
+20. Make folder in C drive:
+# mkdir C:\mongosh
+21. Paste the zip file and extract
+# Eg: C:\mongosh\mongosh-2.12.0-win32-x64\bin
+22. Add mongosh to PATH
+# Open Environment Variables -> Path -> Edit -> New
+# paste C:\mongosh\mongosh-2.12.0-win32-x64\bin
+
+23. Open new TERMINAL 2 and type: mongosh
+test> show dbs
+test> use mern-blog
+mern-blog>  db.test.insertOne({ message: "MongoDB connected successfully" })
+#  acknowledged: true  
+
+24. Install MongoDB Compass: https://www.mongodb.com/try/download/compass
+
+25. In TERMINAL 2: 
+
+# To remove all documents from the articles collection
+# mern-blog> db.articles.deleteMany({})
+
+mern-blog> db.articles.insertMany([{name: 'learn-react', comments: []},{name: 'learn-node', comments:[]},{name: 'my-thoughts-on-learning-react',comments:[]}])
+mern-blog> db.articles.find()
+mern-blog> db.articles.find().pretty()
+
+# To update userName
+mern-blog> db.articles.updateOne({name: "learn-node","comments.username": null},{$set: {"comments.$.username": "Avneel"}})
+----------------------------------------------------
+
+26. cd .\mern-blog
+27. npm install mongodb
+28. npm run server
+# http://localhost:8000/ 
+
+29. Edit server.js
+----------------------------------------------------
+
+30. Stop the server
+31. cd client
+32. npm install whatwg-fetch
+33. Go client/src/index.js and at the top, add: import "whatwg-fetch";
+34. cd ..
+# cd ./mern-blog
+
+35. .\mongod.exe --dbpath "C:\data\db"
+# Let this terminal run
+
+36. npm run dev
+# http://localhost:3000/
+
